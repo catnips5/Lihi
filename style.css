@@ -1,0 +1,121 @@
+/* style.css */
+:root {
+  --primary:   #D8A7B1;
+  --accent:    #C4AC9C;
+  --dark:      #2E2E2E;
+  --light:     #F7F5F2;
+  --gradient-from: #FCE4EC;
+  --gradient-to:   #FFEDE7;
+}
+
+/* Reset & Base */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  direction: rtl;
+  line-height: 1.5;
+}
+.container { width: 90%; max-width:1200px; margin:0 auto; }
+
+/* Hero */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--gradient-from), var(--gradient-to));
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: #f4ece7;
+}
+.hero-content {
+  position: relative; z-index:1;
+  text-align: center;
+}
+.logo {
+  width:140px;
+  transition: width 0.3s ease;
+  margin-bottom:1rem;
+}
+
+/* CTA */
+.cta {
+  margin-top:1rem;
+  padding:0.75rem 1.5rem;
+  border:none;
+  background: var(--primary);
+  color: var(--light);
+  font-size:1rem;
+  border-radius:999px;
+  cursor:pointer;
+  transition: background 0.3s ease;
+}
+.cta:hover { background: var(--accent); }
+
+/* Services */
+.services { padding:4rem 0; }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size:2.25rem;
+  text-align:center;
+  margin-bottom:2rem;
+}
+.cards {
+  display:flex;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.service-card {
+  position:relative;
+  width:300px; height:300px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
+  display:flex;
+  align-items:flex-end;
+  padding:1rem;
+  color:#fff;
+  background-size:cover;
+  background-position:center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card h3 {
+  background: rgba(0,0,0,0.4);
+  padding:0.5rem 1rem;
+  border-radius:6px;
+  font-weight:600;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow:0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Backgrounds */
+.card-influencer { background-image: url('meet.png'); }
+.card-social     { background-image: url('nails.png'); }
+.card-content    { background-image: url('kala.png'); }
+
+/* Reveal animation */
+[data-animate] {
+  opacity:0;
+  transform: translateY(30px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+[data-animate].visible {
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* Footer */
+.footer {
+  background: var(--dark);
+  color: #fff;
+  text-align:center;
+  padding:2rem 0;
+  font-size:0.875rem;
+}
