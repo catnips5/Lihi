@@ -1,44 +1,48 @@
 // script.js
-
-// 1. Your existing IntersectionObserver & scroll logic:
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.2 });
+// ================================================
+// 1. Fade-in כשאלמנטים נכנסים לוויו
+// ================================================
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.25 }
+);
 
 document.querySelectorAll('[data-animate]').forEach((el, i) => {
   el.style.transitionDelay = `${i * 0.15}s`;
   observer.observe(el);
 });
 
-// Logo shrink on scroll
+// ================================================
+// 2. שינוי גודל הלוגו בגלילה (קוסמטי)
+// ================================================
 window.addEventListener('scroll', () => {
-  const y = window.scrollY;
   const logo = document.querySelector('.logo');
-  logo.style.width = y > window.innerHeight - 100 ? '100px' : '140px';
+  if (!logo) return;
+  logo.style.width = window.scrollY > 120 ? '100px' : '140px';
 });
 
-// 2. New: Call button functionality
+// ================================================
+// 3. כפתור הטלפון – העתקה וחיוג
+// ================================================
 const callBtn = document.getElementById('call-btn');
 if (callBtn) {
   const phoneNumber = '052-656-3779';
 
   callBtn.addEventListener('click', () => {
-    // Copy to clipboard
+    /* העתק ללוח */
     if (navigator.clipboard) {
       navigator.clipboard.writeText(phoneNumber)
-        .then(() => {
-          alert('המספר הועתק ללוח: ' + phoneNumber);
-        })
-        .catch(err => {
-          console.error('שגיאה בהעתקה: ', err);
-        });
+        .then(() => alert(`📋 המספר הועתק: ${phoneNumber}`))
+        .catch(() => {});
     }
-    // Open dialer (on mobile devices)
-    window.location.href = 'tel:' + phoneNumber.replace(/-/g, '');
+    /* פתיחת חיוג (במובייל) */
+    window.location.href = `tel:${phoneNumber.replace(/-/g, '')}`;
   });
 }
